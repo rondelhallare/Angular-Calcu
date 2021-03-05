@@ -1,9 +1,10 @@
 <div class="calc" (keydown.end)="endKey($event)" (keydown.delete)="deleteKey($event)">
     <div class="header">
         <div class="titles">
-            Simple Calculator
+            Angular Calculator
         </div>
     </div>
+    <app-display></app-display>
     <div class="display">
         <div class="display-indicate" id="max">
             max
