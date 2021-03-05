@@ -89,7 +89,6 @@ export class CalculatorComponent implements OnInit {
   
   }
   
-  
    clear(){
      this.mainText = '';
      this.subText = '';
