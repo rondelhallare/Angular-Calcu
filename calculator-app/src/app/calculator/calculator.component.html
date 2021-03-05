@@ -1,0 +1,61 @@
+<div class="calc" (keydown.end)="endKey($event)" (keydown.delete)="deleteKey($event)">
+    <div class="header">
+        <div class="titles">
+            Simple Calculator
+        </div>
+    </div>
+    <div class="display">
+        <div class="display-indicate" id="max">
+            max
+        </div>
+        <div class="display-main" id="main">
+            {{ mainText }}
+        </div>
+
+        <div class="display-operations">
+            {{ subText }}
+        </div>
+    </div>
+
+    <div class="row">
+        <button class="button ac" (click)="clear()">ac</button>
+        <button class="button ce" (click)="delete()">ce</button>
+        <button class="button div" (click)="keyPress('/')">%</button>
+        <button class="button mult" (click)="keyPress('*')">x</button>
+    </div>
+
+    <div class="row">
+        <button class="button seven" (click)="keyPress('7')">7</button>
+        <button class="button eight" (click)="keyPress('8')">8</button>
+        <button class="button nine" (click)="keyPress('9')">9</button>
+        <button class="button minus" (click)="keyPress('-')">−</button>
+    </div>
+
+    <div class="row">
+        <button class="button four" (click)="keyPress('4')">4</button>
+        <button class="button five" (click)="keyPress('5')">5</button>
+        <button class="button six" (click)="keyPress('6')">6</button>
+        <button class="button plus" (click)="keyPress('+')">+</button>
+    </div>
+
+    <div class="bottom-row">
+        <div class="left">
+            <div class="row">
+                <button class="button one" (click)="keyPress('1')">1</button>
+                <button class="button two" (click)="keyPress('2')">2</button>
+                <button class="button three" (click)="keyPress('3')">3</button>
+            </div>
+
+            <div class="row">
+                <button class="button zero" (click)="keyPress('0')">0</button>
+                <button class="button dot" (click)="keyPress('.')">.</button>
+            </div>
+        </div>
+
+        <div class="right">
+            <div class="button eq" (click)="equals()">=</div>
+        </div>
+
+    </div>
+
+</div>
