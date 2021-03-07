@@ -8,100 +8,106 @@ import { Component, OnInit } from '@angular/core';
 export class CalculatorComponent implements OnInit {
 
   constructor() { }
-  answered = false; 
-  operatorSet = false;
-  operand1: number;
-  operand2: number;
-  subText = '';
-  mainText = '';
-  operator = '';
-  calculationString = '';
 
   ngOnInit(): void {
   }
-  deleteKey($event){
-    if($event.key == 'Delete'){
-      if (this.mainText !="") {
-        this.mainText=this.mainText.substr(0, this.mainText.length-1);
+  input: string = '';
+  result: string = '';
+  keyboardInput: string = '';
+  keyboardInputNum = /[0-9]/;
+
+  onKey(event: any) {
+    this.keyboardInput = event.key;
+    if (this.keyboardInputNum.test(this.keyboardInput)) {
+      this.pressNum(event.key);
+      console.log(event)
+    }
+
+  }
+
+  pressNum(num: string) {
+
+    //If decimal point was pressed more than once
+    if (num == ".") {
+      if (this.input != "") {
+
+        const lastNum = this.getLastOperand()
+        console.log(lastNum.lastIndexOf("."))
+        if (lastNum.lastIndexOf(".") >= 0) return;
       }
-      }
-   }
-  
-   endKey($event){
-     if($event.key =='End'){
-       this.clear();
-        }
-     }
-  
-    keyPress(key: string) {
-      if (key === '/' || key === '*' || key === '-' || key === '+') {
-         const lastKey = this.mainText[this.mainText.length - 1];
-         if (lastKey === '/' || lastKey === '*' || lastKey === '-' || lastKey === '+')  {
-           this.operatorSet = true;
-         }
-         if ((this.operatorSet) || (this.mainText === '')) {
-           return;
-         }
-         this.operand1 = parseFloat(this.mainText);
-         this.operand2 = parseFloat(this.mainText);
-         this.operator = key;
-         this.operatorSet = true;
-      }
-      if (this.mainText.length === 10) {
+    }
+
+    //If the first input is 0
+    if (num == "0") {
+      if (this.input == "") {
         return;
       }
-      this.mainText += key;
-   }
-   
-  answer() {
-    let formula = this.mainText;
-  
-    let lastKey = formula[formula.length - 1];
-  
-    if (lastKey === '.')  {
-      formula=formula.substr(0,formula.length - 1);
-    }
-  
-    lastKey = formula[formula.length - 1];
-  
-    if (lastKey === '/' || lastKey === '*' || lastKey === '-' || lastKey === '+' || lastKey === '.')  {
-      formula=formula.substr(0,formula.length - 1);
-    }
-    this.subText = this.mainText;
-    this.mainText = eval(formula);
-  }
-  
-  
-   equals() {
-    if(this.mainText != ''){
-      this.answer();
-  
-      var checkLength = `${this.mainText}`;
-  
-      if(checkLength.length > 10){
-        document.getElementById('max').style.color = 'white';
+      const PrevKey = this.input[this.input.length - 1];
+      if (PrevKey === '/' || PrevKey === '*' || PrevKey === '-' || PrevKey === '+') {
+        return;
       }
-  
-      if (this.mainText=="0") this.mainText="";
-    }else{
-      this.clear();
     }
-  
+
+    this.input = this.input + num
+    this.equalResult();
   }
-  
-   clear(){
-     this.mainText = '';
-     this.subText = '';
-     this.operator = '';
-     this.calculationString = '';
-     this.answered = false;
-     this.operatorSet = false;
-     document.getElementById('max').style.color = 'rgba(255, 255, 255, 0.05)';
-   }
-  
-   delete(){
-    if (this.mainText !="") {
-      this.mainText=this.mainText.substr(0, this.mainText.length-1);
+
+  getLastOperand() {
+    let pos: number;
+    console.log(this.input)
+    pos = this.input.toString().lastIndexOf("+")
+    if (this.input.toString().lastIndexOf("-") > pos) pos = this.input.lastIndexOf("-")
+    if (this.input.toString().lastIndexOf("*") > pos) pos = this.input.lastIndexOf("*")
+    if (this.input.toString().lastIndexOf("/") > pos) pos = this.input.lastIndexOf("/")
+    console.log('Last ' + this.input.substr(pos + 1))
+    return this.input.substr(pos + 1)
+  }
+
+  pressOperator(op: string) {
+
+    //If operator was pressed more than once
+    const lastInput = this.input[this.input.length - 1];
+    if (lastInput === '/' || lastInput === '*' || lastInput === '-' || lastInput === '+') {
+      return;
     }
-   }
+
+    this.input = this.input + op
+    this.equalResult();
+  }
+
+  clear() {
+    if (this.input != "") {
+      this.input = this.input.substr(0, this.input.length - 1)
+    }
+  }
+
+  allClear() {
+    this.result = '';
+    this.input = '';
+  }
+
+  equalResult() {
+    let equation = this.input;
+
+    let lastInput = equation[equation.length - 1];
+
+    if (lastInput === '.') {
+      equation = equation.substr(0, equation.length - 1);
+    }
+
+    lastInput = equation[equation.length - 1];
+
+    if (lastInput === '/' || lastInput === '*' || lastInput === '-' || lastInput === '+' || lastInput === '.') {
+      equation = equation.substr(0, equation.length - 1);
+    }
+
+    console.log("Formula " + equation);
+    this.result = eval(equation);
+  }
+
+  equalSign() {
+    this.equalResult();
+    this.input = this.result;
+    if (this.input == "0") this.input = "";
+  }
 }
