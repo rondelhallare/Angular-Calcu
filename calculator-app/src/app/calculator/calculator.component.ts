@@ -19,15 +19,15 @@ export class CalculatorComponent implements OnInit {
   onKey(event: any) {
     this.keyboardInput = event.key;
     if (this.keyboardInputNum.test(this.keyboardInput)) {
-      this.pressNum(event.key);
+      this.NumPress(event.key);
       console.log(event)
     }
 
   }
 
-  pressNum(num: string) {
+  NumPress(num: string) {
 
-    //If decimal point was pressed more than once
+  
     if (num == ".") {
       if (this.input != "") {
 
@@ -37,7 +37,7 @@ export class CalculatorComponent implements OnInit {
       }
     }
 
-    //If the first input is 0
+    
     if (num == "0") {
       if (this.input == "") {
         return;
@@ -49,7 +49,7 @@ export class CalculatorComponent implements OnInit {
     }
 
     this.input = this.input + num
-    this.equalResult();
+    this.Result();
   }
 
   getLastOperand() {
@@ -63,16 +63,16 @@ export class CalculatorComponent implements OnInit {
     return this.input.substr(pos + 1)
   }
 
-  pressOperator(op: string) {
+  Operator(op: string) {
 
-    //If operator was pressed more than once
+    
     const lastInput = this.input[this.input.length - 1];
     if (lastInput === '/' || lastInput === '*' || lastInput === '-' || lastInput === '+') {
       return;
     }
 
     this.input = this.input + op
-    this.equalResult();
+    this.Result();
   }
 
   clear() {
@@ -86,7 +86,7 @@ export class CalculatorComponent implements OnInit {
     this.input = '';
   }
 
-  equalResult() {
+  Result() {
     let equation = this.input;
 
     let lastInput = equation[equation.length - 1];
@@ -105,8 +105,8 @@ export class CalculatorComponent implements OnInit {
     this.result = eval(equation);
   }
 
-  equalSign() {
-    this.equalResult();
+  equals() {
+    this.Result();
     this.input = this.result;
     if (this.input == "0") this.input = "";
   }

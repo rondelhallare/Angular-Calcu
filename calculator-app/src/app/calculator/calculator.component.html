@@ -20,40 +20,40 @@
     <div class="row">
         <button class="button ac" (click)="allClear()">ac</button>
         <button class="button ce" (click)="clear()">ce</button>
-        <button class="button div" (click)="pressOperator('/')">%</button>
-        <button class="button mult" (click)="pressOperator('*')">x</button>
+        <button class="button div" (click)="Operator('/')">%</button>
+        <button class="button mult" (click)="Operator('*')">x</button>
     </div>
 
     <div class="row">
-        <button class="button seven" (click)="pressNum('7')">7</button>
-        <button class="button eight" (click)="pressNum('8')">8</button>
-        <button class="button nine" (click)="pressNum('9')">9</button>
-        <button class="button minus" (click)="pressOperator('-')">−</button>
+        <button class="button seven" (click)="NumPress('7')">7</button>
+        <button class="button eight" (click)="NumPress('8')">8</button>
+        <button class="button nine" (click)="NumPress('9')">9</button>
+        <button class="button minus" (click)="Operator('-')">−</button>
     </div>
 
     <div class="row">
-        <button class="button four" (click)="pressNum('4')">4</button>
-        <button class="button five" (click)="pressNum('5')">5</button>
-        <button class="button six" (click)="pressNum('6')">6</button>
-        <button class="button plus" (click)="pressOperator('+')">+</button>
+        <button class="button four" (click)="NumPress('4')">4</button>
+        <button class="button five" (click)="NumPress('5')">5</button>
+        <button class="button six" (click)="NumPress('6')">6</button>
+        <button class="button plus" (click)="Operator('+')">+</button>
     </div>
 
     <div class="bottom-row">
         <div class="left">
             <div class="row">
-                <button class="button one" (click)="pressNum('1')">1</button>
-                <button class="button two" (click)="pressNum('2')">2</button>
-                <button class="button three" (click)="pressNum('3')">3</button>
+                <button class="button one" (click)="NumPress('1')">1</button>
+                <button class="button two" (click)="NumPress('2')">2</button>
+                <button class="button three" (click)="NumPress('3')">3</button>
             </div>
 
             <div class="row">
-                <button class="button zero" (click)="pressNum('0')">0</button>
-                <button class="button dot" (click)="pressNum('.')">.</button>
+                <button class="button zero" (click)="NumPress('0')">0</button>
+                <button class="button dot" (click)="NumPress('.')">.</button>
             </div>
         </div>
 
         <div class="right">
-            <div class="button eq" (click)="equalSign()">=</div>
+            <div class="button eq" (click)="equals()">=</div>
         </div>
 
     </div>
